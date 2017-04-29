@@ -14,3 +14,4 @@ RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/ijlyttle/AzureDatalakeStore
 BugReports: https://github.com/ijlyttle/AzureDatalakeStore/issues
+Suggests: covr
