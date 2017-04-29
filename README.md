@@ -19,6 +19,8 @@ What we will need
 
 -   Make a directory
 
+-   Delete a file/folder from a directory
+
 -   List a directory
 
 -   Upload a file to a directory
@@ -26,8 +28,6 @@ What we will need
 -   Read a file from a directory
 
 -   Append to a file in a directory
-
--   Delete a file/folder from a directory
 
 -   Rename a file/folder in a directory
 

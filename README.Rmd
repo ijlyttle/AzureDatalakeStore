@@ -30,6 +30,8 @@ WebHFDS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 * Make a directory
 
+* Delete a file/folder from a directory
+
 * List a directory
 
 * Upload a file to a directory
@@ -38,12 +40,7 @@ WebHFDS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 * Append to a file in a directory
 
-* Delete a file/folder from a directory
-
 * Rename a file/folder in a directory 
-
-
-
 
 ## Installation
 
