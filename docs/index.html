@@ -68,20 +68,27 @@
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>This package is used to access the datalake store itself. Looking at the <a href="https://docs.microsoft.com/en-us/rest/api/datalakestore/webhdfs-filesystem-apis">reference</a>, we note that this is using WebHDFS.</p>
 <p>Just to note that the goal of this package is to get things working for Azure Datalake Store. If we end up being able to support WebHDFS, that will be a bonus.</p>
-<p>WebHFDS seems to use a lot of redirects. However, this <a href="https://blogs.msdn.microsoft.com/microsoftrservertigerteam/2017/03/14/using-r-to-perform-filesystem-operations-on-azure-data-lake-store/">Microsoft blog</a> suggests that we may not have to do that. If so, I don’t know if this would be a “feature” of Azure or a “feature” of <strong>httr</strong>, or maybe <strong>curl</strong>.</p>
+<p>WebHDFS seems to use a lot of redirects. However, this <a href="https://blogs.msdn.microsoft.com/microsoftrservertigerteam/2017/03/14/using-r-to-perform-filesystem-operations-on-azure-data-lake-store/">Microsoft blog</a> suggests that we may not have to do that. If so, I don’t know if this would be a “feature” of Azure or a “feature” of <strong>httr</strong>, or maybe <strong>curl</strong>.</p>
 </div>
 <div id="what-we-will-need" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-we-will-need" class="anchor"></a>What we will need</h2>
 <ul>
-<li><p>Make a directory</p></li>
-<li><p>Delete a file/folder from a directory</p></li>
-<li><p>List a directory</p></li>
+<li><p><code>adls</code> S3 object to hold the base-url and the token <strong>done</strong></p></li>
+<li><p>Make a directory <strong>done</strong></p></li>
+<li><p>List a directory <strong>done</strong></p></li>
+<li><p>Rename a file/folder in a directory <strong>done</strong></p></li>
+<li><p>Delete a file/directory <strong>done</strong></p></li>
 <li><p>Upload a file to a directory</p></li>
 <li><p>Read a file from a directory</p></li>
 <li><p>Append to a file in a directory</p></li>
-<li><p>Rename a file/folder in a directory</p></li>
 </ul>
+<div id="tests" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tests" class="anchor"></a>Tests</h3>
+<p>Directory ops: make, list, rename, list (again), delete, list (again)</p>
+<p>File ops: create (upload), list, download, append, download (again), rename, list (again), delete, list (again)</p>
+</div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -90,6 +97,11 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 devtools::<span class="kw">install_github</span>(<span class="st">"ijlyttle/AzureDatalakeStore"</span>)</code></pre></div>
 <p>If you encounter a clear bug, please file a minimal reproducible example on <a href="https://github.com/ijlyttle/AzureDatalakeStore/issues">github</a>.</p>
+</div>
+<div id="acknowlegements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#acknowlegements" class="anchor"></a>Acknowlegements</h2>
+<p>This package draws inspiration from <a href="https://github.com/saurfang/rwebhdfs">Forest Fang’s <strong>rwebhdfs</strong> package</a>.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">

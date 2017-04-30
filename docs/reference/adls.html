@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Base URL — adls_url • AzureDatalakeStore</title>
+<title>Create an adls object. — adls • AzureDatalakeStore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -76,68 +76,57 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Base URL</h1>
+    <h1>Create an adls object.</h1>
     </div>
 
     
-    <p>This is a convenience function to return the base URL for the service.</p>
+    <p>TODO: describe the components and why it makes things easier to keep them together.</p>
     
 
-    <pre class="usage"><span class='fu'>adls_url</span>(<span class='no'>adls_name</span>, <span class='kw'>domain_name</span> <span class='kw'>=</span> <span class='st'>"azuredatalakestore.net"</span>)</pre>
+    <pre class="usage"><span class='fu'>adls</span>(<span class='no'>base_url</span>, <span class='no'>token</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>adls_name</th>
-      <td><p>character, Azure Data Lake Store name</p></td>
+      <th>base_url</th>
+      <td><p>character or <code>url</code> object made using <code><a href='http://www.rdocumentation.org/packages/httr/topics/parse_url'>httr::parse_url()</a></code>, this is
+the base URL for the datalake store. It may be convenient to use <code><a href='adls_url.html'>adls_url()</a></code> to construct this.</p></td>
     </tr>
     <tr>
-      <th>domain_name</th>
-      <td><p>character, domain name</p></td>
+      <th>token</th>
+      <td><p><code>Token2.0</code> reference-class (R6) object from <strong>httr</strong>.
+It may be convenient to use <code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_token_azure'>AzureOAuth::oauth_token_azure()</a></code> to construct this.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>url</code> object returned by <code><a href='http://www.rdocumentation.org/packages/httr/topics/parse_url'>httr::parse_url()</a></code></p>
+    <p>An <code>adls</code> S3 object.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Azure Datalake Store documentation on
-<a href = 'https://docs.microsoft.com/en-us/rest/api/datalakestore/webhdfs-filesystem-apis#url-for-rest-calls'>"WebHDFS Filesystem API"</a></p>
+    <p><code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_token_azure'>AzureOAuth::oauth_token_azure()</a></code>,
+<code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_service_token_azure'>AzureOAuth::oauth_service_token_azure()</a></code>,</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='fu'>adls_url</span>(<span class='st'>"foo"</span>)</div><div class='output co'>#&gt; $scheme
-#&gt; [1] "https"
-#&gt; 
-#&gt; $hostname
-#&gt; [1] "foo.azuredatalakestore.net"
-#&gt; 
-#&gt; $port
-#&gt; NULL
-#&gt; 
-#&gt; $path
-#&gt; [1] "webhdfs/v1"
-#&gt; 
-#&gt; $query
-#&gt; NULL
-#&gt; 
-#&gt; $params
-#&gt; NULL
-#&gt; 
-#&gt; $fragment
-#&gt; NULL
-#&gt; 
-#&gt; $username
-#&gt; NULL
-#&gt; 
-#&gt; $password
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "url"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
+    <span class='fu'>library</span>(<span class='st'>"AzureOAuth"</span>)
+
+    <span class='co'># create token (assumes Azure native app)</span>
+    <span class='no'>token</span> <span class='kw'>&lt;-</span> <span class='fu'>oauth_token_azure</span>(
+      <span class='kw'>tenant_id</span> <span class='kw'>=</span> <span class='st'>"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>,
+      <span class='kw'>application_id</span> <span class='kw'>=</span> <span class='st'>"ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj"</span>,
+      <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"foo"</span>
+    )
+
+    <span class='co'># create adls object with base-URL and token</span>
+    <span class='no'>adls_example</span> <span class='kw'>&lt;-</span> <span class='fu'>adls</span>(
+      <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='fu'><a href='adls_url.html'>adls_url</a></span>(<span class='st'>"bar"</span>),
+      <span class='kw'>token</span> <span class='kw'>=</span> <span class='no'>token</span>
+    )
+})</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

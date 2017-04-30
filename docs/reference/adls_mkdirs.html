@@ -80,26 +80,26 @@
     </div>
 
     
-    <p>Make a directory.</p>
+    <p>Apparently returns <code>TRUE</code> if folder already exists.</p>
     
 
-    <pre class="usage"><span class='fu'>adls_mkdirs</span>(<span class='no'>url</span>, <span class='no'>path</span>, <span class='kw'>permission</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>adls_mkdirs</span>(<span class='no'>adls</span>, <span class='no'>path</span>, <span class='kw'>permission</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>adls</th>
+      <td><p><code>adls</code> S3 object, generated using <code><a href='adls.html'>adls()</a></code></p></td>
+    </tr>
+    <tr>
       <th>path</th>
-      <td><p>character, directory to create with respect to root -
-<code>file.path()</code> can be used here</p></td>
+      <td><p>character, directory to act on, defined with respect to path
+defined in <code>adls$base_url</code> - <code>file.path()</code> can be used here</p></td>
     </tr>
     <tr>
       <th>permission</th>
-      <td><p>integer (octal), permissions to assign to the directory</p></td>
-    </tr>
-    <tr>
-      <th>adls_url</th>
-      <td><p>url object, generated using <code><a href='adls_url.html'>adls_url()</a></code></p></td>
+      <td><p>integer (octal form), permissions to assign to the directory</p></td>
     </tr>
     </table>
     
@@ -107,11 +107,31 @@
 
     <p>logical, indicating success</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='adls.html'>adls()</a></code>, <code><a href='adls_url.html'>adls_url()</a></code>
+WebHDFS documentation for <a href = 'http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Make_a_Directory'>"Make a Directory"</a></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
-    <span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='adls_url.html'>adls_url</a></span>(<span class='st'>"foo"</span>)
-    <span class='fu'>adls_mkdirs</span>(<span class='st'>"bar"</span>)
+    <span class='fu'>library</span>(<span class='st'>"AzureOAuth"</span>)
+
+    <span class='co'># create token (assumes Azure native app)</span>
+    <span class='no'>token</span> <span class='kw'>&lt;-</span> <span class='fu'>oauth_token_azure</span>(
+      <span class='kw'>tenant_id</span> <span class='kw'>=</span> <span class='st'>"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>,
+      <span class='kw'>application_id</span> <span class='kw'>=</span> <span class='st'>"ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj"</span>,
+      <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"foo"</span>
+    )
+
+    <span class='co'># create adls object with base-URL and token</span>
+    <span class='no'>adls_example</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='adls.html'>adls</a></span>(
+      <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='fu'><a href='adls_url.html'>adls_url</a></span>(<span class='st'>"bar"</span>),
+      <span class='kw'>token</span> <span class='kw'>=</span> <span class='no'>token</span>
+    )
+
+    <span class='co'># create a directory</span>
+    <span class='fu'>adls_mkdirs</span>(<span class='no'>adls_example</span>, <span class='st'>"baz"</span>)
 })</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -120,6 +140,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

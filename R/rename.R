@@ -1,11 +1,13 @@
-#' List a directory.
+#' Rename a file/directory.
 #'
 #'
 #' @inheritParams adls_mkdirs
+#' @param destination          character, path for the destination with respect to path
+#'   defined in `adls$base_url` - [`file.path()`] can be used here
 #'
-#' @return If empty, returns `NULL`. Otherwise returns `tbl_df` with with directory listing
+#' @return A logical indicating the success of the operation.
 #' @seealso [`adls()`], [`adls_url()`]
-#'   WebHDFS documentation for ["List a Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#List_a_Directory)
+#'   WebHDFS documentation for ["Delete a File/Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Delete_a_FileDirectory)
 #' @examples
 #' \dontrun{
 #'   library("AzureOAuth")
@@ -26,55 +28,43 @@
 #'   # create a directory
 #'   adls_mkdirs(adls_example, "baz")
 #'
-#'   # list the root directory
-#'   adls_liststatus(adls_example)
+#'   # reanme the newly-created directory
+#'   adls_rename(adls_example, "baz", "baz_new")
 #' }
 #' @export
 #'
-adls_liststatus <- function(adls, path = NULL) {
+adls_rename <- function(adls, path, destination) {
 
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    is.character(path) || is.null(path)
+    is.character(path),
+    is.character(destination)
   )
 
   url <-
     adls$base_url %>%
     url_path_append(path) %>%
-    url_query_append(op = "LISTSTATUS")
-
-  # hack to compose URL properly for root directory
-  if (is.null(path)) {
-    len <- length(url$path)
-    url$path[len] <- paste0(url$path[len], "/")
-  }
+    url_query_append(
+      op = "RENAME",
+      destination = destination
+    )
 
   response <-
     url %>%
-    httr::GET(
+    httr::PUT(
       httr::content_type_json(),
       httr::accept_json(),
       config = httr::config(token = adls$token)
     ) %>%
     httr::stop_for_status(
-      task = "list directory on Azure Datalake store"
+      task = "rename file/directory on Azure Datalake store"
     )
 
   result <-
     response %>%
     unpack_response() %>%
-    `[[`("FileStatuses") %>%
-    `[[`("FileStatus")
-
-  if (is.data.frame(result)){
-    result$accessTime <- POSIXct_from_ms(result$accessTime)
-    result$modificationTime <- POSIXct_from_ms(result$modificationTime)
-
-    result <- tibble::as_data_frame(result)
-  } else {
-    result <- NULL
-  }
+    `[[`("boolean")
 
   result
 }

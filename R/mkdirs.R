@@ -3,7 +3,7 @@
 #' Apparently returns `TRUE` if folder already exists.
 #'
 #' @param adls        `adls` S3 object, generated using [`adls()`]
-#' @param path        character, directory to create with respect to path
+#' @param path        character, directory to act on, defined with respect to path
 #'   defined in `adls$base_url` - [`file.path()`] can be used here
 #' @param permission  integer (octal form), permissions to assign to the directory
 #'

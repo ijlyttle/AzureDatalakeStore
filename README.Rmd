@@ -34,7 +34,7 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 * List a directory **done**
 
-* Rename a file/folder in a directory 
+* Rename a file/folder in a directory **done**
 
 * Delete a file/directory **done**
 
@@ -46,7 +46,9 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 ### Tests
 
-Folder ops: make, list, rename, list (again), delete, list (again)
+Directory ops: make, list, rename, list (again), delete, list (again)
+
+File ops: create (upload), list, download, append, download (again), rename, list (again), delete, list (again)
 
 ## Installation
 

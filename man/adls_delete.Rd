@@ -9,7 +9,7 @@ adls_delete(adls, path = NULL, recursive = FALSE)
 \arguments{
 \item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
 
-\item{path}{character, directory to create with respect to path
+\item{path}{character, directory to act on, defined with respect to path
 defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}
 
 \item{recursive}{logical, indicates if operation will act on

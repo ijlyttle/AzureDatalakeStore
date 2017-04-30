@@ -1,8 +1,10 @@
 # AzureDatalakeStore 0.0.0.9000
 
+* Adds function `adls_rename()` to rename a file or directory.
+
 * Adds function `adls_delete()` to delete a file or directory.
 
-* Adds function `adls_liststatus()` to list a directory.
+* Adds function `adls_list_status()` to list a directory.
 
 * Adds function `adls_mkdirs()` to make a directory.
 
