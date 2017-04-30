@@ -4,12 +4,13 @@
 \alias{adls}
 \title{Create an adls object}
 \usage{
-adls(url, token)
+adls(base_url, token)
 }
 \arguments{
-\item{url}{url}
+\item{base_url}{character or \code{url} object made using \code{\link[httr:parse_url]{httr::parse_url()}}, this is
+the base URL for the datalake store. It may be convenient to use \code{\link[=adls_url]{adls_url()}} to construct this.}
 
-\item{token}{token}
+\item{token}{\code{Token2.0`` reference-class (R6) object. It may be convenient to use [}AzureOAuth::oauth_token_azure()`] to construct this.}
 }
 \value{
 An \code{adls} S3 object.
@@ -18,5 +19,7 @@ An \code{adls} S3 object.
 Create an adls object
 }
 \examples{
+\dontrun{
   adls(url, token)
+}
 }

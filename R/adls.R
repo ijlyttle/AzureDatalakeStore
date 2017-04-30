@@ -1,17 +1,43 @@
 #' Create an adls object
 #'
-#' @param url    url
-#' @param token  token
+#' @param base_url    character or `url` object made using [`httr::parse_url()`], this is
+#'   the base URL for the datalake store. It may be convenient to use [`adls_url()`] to construct this.
+#' @param token       `Token2.0`` reference-class (R6) object.
+#'   It may be convenient to use [`AzureOAuth::oauth_token_azure()`] to construct this.
 #'
 #' @return An `adls` S3 object.
 #' @examples
+#' \dontrun{
 #'   adls(url, token)
+#' }
 #' @export
 #'
-adls <- function(url, token) {
+adls <- function(base_url, token) {
 
-  # assert that these are URL and token
+  # coerce into url
+  base_url <- httr::parse_url(base_url)
 
+  # assert that these are url and token objects
+  assertthat::assert_that(
+    inherits(base_url, "url"),
+    inherits(token, "Token2.0")
+  )
+
+  structure(
+    list(
+      base_url = base_url,
+      token = token
+    ),
+    class = "adls"
+  )
+}
+
+print.adls <- function(x, ...){
+  cat("<adls> (Azure Datalake Store)\n")
+  cat("<url>: <url>\n")
+  cat(paste0(" address:   ", httr::build_url(x$base_url), "\n"))
+  cat("<token>: ")
+  print(x$token)
 }
 
 #' Base URL

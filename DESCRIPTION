@@ -15,8 +15,13 @@ Roxygen: list(markdown = TRUE)
 URL: https://github.com/ijlyttle/AzureDatalakeStore
 BugReports: https://github.com/ijlyttle/AzureDatalakeStore/issues
 Suggests: covr,
-    testthat
+    testthat,
+    AzureDatalakeStoreAccount
 Imports: glue,
     httr,
     jsonlite,
-    magrittr
+    magrittr,
+    assertthat,
+    AzureOAuth
+Remotes: ijlyttle/AzureOAuth,
+  ijlyttle/AzureDatalakeStoreAccount
