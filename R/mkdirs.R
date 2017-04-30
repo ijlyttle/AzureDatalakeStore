@@ -1,6 +1,6 @@
 #' Make a directory.
 #'
-#' @param adls_url    url object, generated using [`adls_url()`]
+#' @param adls        `adls` S3 object, generated using [`adls()`]
 #' @param path        character, directory to create with respect to root -
 #'   [`file.path()`] can be used here
 #' @param permission  integer (octal), permissions to assign to the directory
@@ -13,7 +13,7 @@
 #' }
 #' @export
 #'
-adls_mkdirs <- function(url, path, permission = NULL) {
+adls_mkdirs <- function(adls, path, permission = NULL) {
 
   TRUE
 }

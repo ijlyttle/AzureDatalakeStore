@@ -28,6 +28,8 @@ WebHFDS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 ## What we will need
 
+* `adls` S3 object to hold the base-url and the token
+
 * Make a directory
 
 * Delete a file/folder from a directory

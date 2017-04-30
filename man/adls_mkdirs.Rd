@@ -4,15 +4,15 @@
 \alias{adls_mkdirs}
 \title{Make a directory.}
 \usage{
-adls_mkdirs(url, path, permission = NULL)
+adls_mkdirs(adls, path, permission = NULL)
 }
 \arguments{
+\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
+
 \item{path}{character, directory to create with respect to root -
 \code{\link[=file.path]{file.path()}} can be used here}
 
 \item{permission}{integer (octal), permissions to assign to the directory}
-
-\item{adls_url}{url object, generated using \code{\link[=adls_url]{adls_url()}}}
 }
 \value{
 logical, indicating success
