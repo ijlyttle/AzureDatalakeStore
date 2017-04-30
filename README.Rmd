@@ -24,7 +24,7 @@ This package is used to access the datalake store itself. Looking at the [refere
 
 Just to note that the goal of this package is to get things working for Azure Datalake Store. If we end up being able to support WebHDFS, that will be a bonus.
 
-WebHFDS seems to use a lot of redirects. However, this [Microsoft blog](https://blogs.msdn.microsoft.com/microsoftrservertigerteam/2017/03/14/using-r-to-perform-filesystem-operations-on-azure-data-lake-store/) suggests that we may not have to do that. If so, I don't know if this would be a "feature" of Azure or a "feature" of **httr**, or maybe **curl**.
+WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://blogs.msdn.microsoft.com/microsoftrservertigerteam/2017/03/14/using-r-to-perform-filesystem-operations-on-azure-data-lake-store/) suggests that we may not have to do that. If so, I don't know if this would be a "feature" of Azure or a "feature" of **httr**, or maybe **curl**.
 
 ## What we will need
 
@@ -54,6 +54,10 @@ devtools::install_github("ijlyttle/AzureDatalakeStore")
 ```
 
 If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/ijlyttle/AzureDatalakeStore/issues). 
+
+## Acknowlegements
+
+This package draws inspiration from [Forest Fang's **rwebhdfs** package](https://github.com/saurfang/rwebhdfs).
 
 ## Code of conduct
 
