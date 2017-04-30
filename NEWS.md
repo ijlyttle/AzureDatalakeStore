@@ -1,6 +1,10 @@
 # AzureDatalakeStore 0.0.0.9000
 
-* Adds `adls_mkdirs()` function to make a directory.
+* Adds function `adls_delete()` to delete a file or directory.
+
+* Adds function `adls_liststatus()` to list a directory.
+
+* Adds function `adls_mkdirs()` to make a directory.
 
 * Adds `adls` S3 class to contain base-URL and token, uses `adls()` as constructor.
 

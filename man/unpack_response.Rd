@@ -9,7 +9,7 @@ unpack_response(response, ...)
 \arguments{
 \item{response}{\code{httr} response object}
 
-\item{...}{other arguments passed to \code{\link[jsonlite:fromJSON]{jsonlite::fromJSON}}}
+\item{...}{other arguments passed to \code{\link[jsonlite:fromJSON]{jsonlite::fromJSON()}}}
 }
 \value{
 whatever the JSON spits out

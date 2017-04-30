@@ -9,7 +9,7 @@ adls_url(adls_name, domain_name = "azuredatalakestore.net")
 \arguments{
 \item{adls_name}{character, Azure Data Lake Store name}
 
-\item{domain}{character, domain name}
+\item{domain_name}{character, domain name}
 }
 \value{
 \code{url} object returned by \code{\link[httr:parse_url]{httr::parse_url()}}

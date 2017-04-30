@@ -1,15 +1,13 @@
-#' Make a directory.
+#' Delete a file/directory.
 #'
-#' Apparently returns `TRUE` if folder already exists.
 #'
-#' @param adls        `adls` S3 object, generated using [`adls()`]
-#' @param path        character, directory to create with respect to path
-#'   defined in `adls$base_url` - [`file.path()`] can be used here
-#' @param permission  integer (octal form), permissions to assign to the directory
+#' @inheritParams adls_mkdirs
+#' @param recursive            logical, indicates if operation will act on
+#'   content in subdirectories
 #'
-#' @return logical, indicating success
+#' @return A logical indicating the success of the operation.
 #' @seealso [`adls()`], [`adls_url()`]
-#'   WebHDFS documentation for ["Make a Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Make_a_Directory)
+#'   WebHDFS documentation for ["Delete a File/Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Delete_a_FileDirectory)
 #' @examples
 #' \dontrun{
 #'   library("AzureOAuth")
@@ -29,39 +27,44 @@
 #'
 #'   # create a directory
 #'   adls_mkdirs(adls_example, "baz")
+#'
+#'   # delete the newly-created directory
+#'   adls_delete(adls_example, "baz")
 #' }
 #' @export
 #'
-adls_mkdirs <- function(adls, path, permission = NULL) {
-
-  if (!is.null(permission)) {
-    permission <- as.integer(permission)
-  }
+adls_delete <- function(adls, path = NULL, recursive = FALSE) {
 
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    is.character(path),
-    is.integer(permission) || is.null(permission)
+    is.character(path) || is.null(path),
+    is.logical(recursive)
   )
 
   url <-
     adls$base_url %>%
     url_path_append(path) %>%
     url_query_append(
-      op = "MKDIRS",
-      permission = permission
+      op = "DELETE",
+      recursive = recursive
     )
+
+  # hack to compose URL properly for root directory
+  if (is.null(path)) {
+    len <- length(url$path)
+    url$path[len] <- paste0(url$path[len], "/")
+  }
 
   response <-
     url %>%
-    httr::PUT(
+    httr::DELETE(
       httr::content_type_json(),
       httr::accept_json(),
       config = httr::config(token = adls$token)
     ) %>%
     httr::stop_for_status(
-      task = "make directory on Azure Datalake store"
+      task = "delete file/directory on Azure Datalake store"
     )
 
   result <-

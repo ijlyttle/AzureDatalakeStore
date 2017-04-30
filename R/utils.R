@@ -61,7 +61,7 @@ url_query_append <- function(url, ...) {
 #' unpacks response
 #'
 #' @param response `httr` response object
-#' @param ...      other arguments passed to [`jsonlite::fromJSON`]
+#' @param ...      other arguments passed to [`jsonlite::fromJSON()`]
 #'
 #' @return whatever the JSON spits out
 #' @keywords internal
@@ -72,4 +72,17 @@ unpack_response <- function(response, ...) {
     httr::content(type = "text", encoding = "UTF-8") %>%
     jsonlite::fromJSON(...)
 
+}
+
+
+#' Makes a datetime object using milliseconds
+#'
+#' @param x   numeric, number of milliseconds from UNIX epoch
+#' @param tz  character, Olson timezone
+#'
+#' @return POSIXct
+#' @keywords internal
+#'
+POSIXct_from_ms <- function(x, tz = "UTC") {
+  as.POSIXct(x/1000, tz = tz, origin = "1970-01-01")
 }

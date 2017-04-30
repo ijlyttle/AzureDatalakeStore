@@ -62,8 +62,8 @@ print.adls <- function(x, ...){
 #'
 #' This is a convenience function to return the base URL for the service.
 #'
-#' @param adls_name  character, Azure Data Lake Store name
-#' @param domain     character, domain name
+#' @param adls_name    character, Azure Data Lake Store name
+#' @param domain_name  character, domain name
 #'
 #' @return `url` object returned by [`httr::parse_url()`]
 #' @seealso Azure Datalake Store documentation on

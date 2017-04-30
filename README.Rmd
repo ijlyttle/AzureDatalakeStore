@@ -32,11 +32,11 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 * Make a directory **done**
 
-* List a directory
+* List a directory **done**
 
-* Delete a directory
+* Rename a file/folder in a directory 
 
-* Delete a file from a directory (is this different?)
+* Delete a file/directory **done**
 
 * Upload a file to a directory
 
@@ -44,11 +44,9 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 * Append to a file in a directory
 
-* Rename a file/folder in a directory 
-
 ### Tests
 
-Folder ops: make, list, delete, list (again)
+Folder ops: make, list, rename, list (again), delete, list (again)
 
 ## Installation
 
