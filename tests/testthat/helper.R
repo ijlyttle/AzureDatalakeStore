@@ -26,4 +26,9 @@ if (interactive()){
     name = helper$application_name
   )
 
+  helper$adls <- adls(
+    base_url = adls_url(helper$account_test_name),
+    token = helper$token
+  )
+
 }

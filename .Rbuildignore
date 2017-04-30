@@ -7,4 +7,5 @@
 ^codecov\.yml$
 ^docs$
 ^_pkgdown.yml$
+^private$
 \.httr-oauth$

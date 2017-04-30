@@ -2,6 +2,10 @@ context("adls")
 
 library("httr")
 
+#
+# see helper.R
+#
+
 test_that("can create url", {
 
   url_sample <-
@@ -19,8 +23,6 @@ test_that("adls constructor works", {
   skip_on_travis()
   skip_if_not(interactive())
 
-  adls_test <- adls(adls_url(helper$account_test_name), helper$token)
-
-  expect_is(adls_test, "adls")
+  expect_is(helper$adls, "adls")
 })
 

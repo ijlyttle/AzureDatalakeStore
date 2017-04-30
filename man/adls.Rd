@@ -2,7 +2,7 @@
 % Please edit documentation in R/adls.R
 \name{adls}
 \alias{adls}
-\title{Create an adls object}
+\title{Create an adls object.}
 \usage{
 adls(base_url, token)
 }
@@ -10,16 +10,34 @@ adls(base_url, token)
 \item{base_url}{character or \code{url} object made using \code{\link[httr:parse_url]{httr::parse_url()}}, this is
 the base URL for the datalake store. It may be convenient to use \code{\link[=adls_url]{adls_url()}} to construct this.}
 
-\item{token}{\code{Token2.0`` reference-class (R6) object. It may be convenient to use [}AzureOAuth::oauth_token_azure()`] to construct this.}
+\item{token}{\code{Token2.0} reference-class (R6) object from \strong{httr}.
+It may be convenient to use \code{\link[AzureOAuth:oauth_token_azure]{AzureOAuth::oauth_token_azure()}} to construct this.}
 }
 \value{
 An \code{adls} S3 object.
 }
 \description{
-Create an adls object
+TODO: describe the components and why it makes things easier to keep them together.
 }
 \examples{
 \dontrun{
-  adls(url, token)
+  library("AzureOAuth")
+
+  # create token (assumes Azure native app)
+  token <- oauth_token_azure(
+    tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
+    name = "foo"
+  )
+
+  # create adls object with base-URL and token
+  adls_example <- adls(
+    base_url = adls_url("bar"),
+    token = token
+  )
 }
+}
+\seealso{
+\code{\link[AzureOAuth:oauth_token_azure]{AzureOAuth::oauth_token_azure()}},
+\code{\link[AzureOAuth:oauth_service_token_azure]{AzureOAuth::oauth_service_token_azure()}},
 }

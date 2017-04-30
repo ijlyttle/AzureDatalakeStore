@@ -28,13 +28,15 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 ## What we will need
 
-* `adls` S3 object to hold the base-url and the token
+* `adls` S3 object to hold the base-url and the token **done**
 
-* Make a directory
-
-* Delete a file/folder from a directory
+* Make a directory **done**
 
 * List a directory
+
+* Delete a directory
+
+* Delete a file from a directory (is this different?)
 
 * Upload a file to a directory
 
@@ -43,6 +45,10 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 * Append to a file in a directory
 
 * Rename a file/folder in a directory 
+
+### Tests
+
+Folder ops: make, list, delete, list (again)
 
 ## Installation
 

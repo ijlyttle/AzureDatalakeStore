@@ -20,4 +20,7 @@ This is a convenience function to return the base URL for the service.
 \examples{
   adls_url("foo")
 }
-\keyword{internal}
+\seealso{
+Azure Datalake Store documentation on
+\href{https://docs.microsoft.com/en-us/rest/api/datalakestore/webhdfs-filesystem-apis#url-for-rest-calls}{"WebHDFS Filesystem API"}
+}

@@ -1,14 +1,32 @@
-#' Create an adls object
+#' Create an adls object.
+#'
+#' TODO: describe the components and why it makes things easier to keep them together.
 #'
 #' @param base_url    character or `url` object made using [`httr::parse_url()`], this is
 #'   the base URL for the datalake store. It may be convenient to use [`adls_url()`] to construct this.
-#' @param token       `Token2.0`` reference-class (R6) object.
+#' @param token       `Token2.0` reference-class (R6) object from **httr**.
 #'   It may be convenient to use [`AzureOAuth::oauth_token_azure()`] to construct this.
 #'
 #' @return An `adls` S3 object.
+#' @seealso [`AzureOAuth::oauth_token_azure()`],
+#'   [`AzureOAuth::oauth_service_token_azure()`],
+#'
 #' @examples
 #' \dontrun{
-#'   adls(url, token)
+#'   library("AzureOAuth")
+#'
+#'   # create token (assumes Azure native app)
+#'   token <- oauth_token_azure(
+#'     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+#'     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
+#'     name = "foo"
+#'   )
+#'
+#'   # create adls object with base-URL and token
+#'   adls_example <- adls(
+#'     base_url = adls_url("bar"),
+#'     token = token
+#'   )
 #' }
 #' @export
 #'
@@ -48,7 +66,8 @@ print.adls <- function(x, ...){
 #' @param domain     character, domain name
 #'
 #' @return `url` object returned by [`httr::parse_url()`]
-#' @keywords internal
+#' @seealso Azure Datalake Store documentation on
+#'   ["WebHDFS Filesystem API"](https://docs.microsoft.com/en-us/rest/api/datalakestore/webhdfs-filesystem-apis#url-for-rest-calls)
 #' @examples
 #'   adls_url("foo")
 #' @export

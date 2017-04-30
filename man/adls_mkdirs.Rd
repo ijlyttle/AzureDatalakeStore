@@ -9,20 +9,39 @@ adls_mkdirs(adls, path, permission = NULL)
 \arguments{
 \item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
 
-\item{path}{character, directory to create with respect to root -
-\code{\link[=file.path]{file.path()}} can be used here}
+\item{path}{character, directory to create with respect to path
+defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}
 
-\item{permission}{integer (octal), permissions to assign to the directory}
+\item{permission}{integer (octal form), permissions to assign to the directory}
 }
 \value{
 logical, indicating success
 }
 \description{
-Make a directory.
+Apparently returns \code{TRUE} if folder already exists.
 }
 \examples{
 \dontrun{
-  url <- adls_url("foo")
-  adls_mkdirs("bar")
+  library("AzureOAuth")
+
+  # create token (assumes Azure native app)
+  token <- oauth_token_azure(
+    tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
+    name = "foo"
+  )
+
+  # create adls object with base-URL and token
+  adls_example <- adls(
+    base_url = adls_url("bar"),
+    token = token
+  )
+
+  # create a directory
+  adls_mkdirs(adls_example, "baz")
 }
+}
+\seealso{
+\code{\link[=adls]{adls()}}, \code{\link[=adls_url]{adls_url()}}
+WebHDFS documentation for \href{http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Make_a_Directory`}{"Make a Directory"}
 }
