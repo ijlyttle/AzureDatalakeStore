@@ -1,6 +1,8 @@
 # AzureDatalakeStore 0.0.0.9000
 
-* Adds function `adls_open_to_text()` to read file and return a character string.
+* Adds functions `adls_open_to_text()` and `adls_open_to_file()` to wrap/augment `adls_open_to_raw()`.
+
+* Adds function `adls_open_to_raw()` to read file and return raw data.
 
 * Adds function `adls_rename()` to rename a file or directory.
 

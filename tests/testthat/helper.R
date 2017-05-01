@@ -19,9 +19,36 @@ if (interactive()){
     name = helper$application_name
   )
 
-  helper$adls <- adls(
+  # create if not created
+  account_info <-
+    AzureDatalakeStoreAccount::adla_list(
+      token = helper$token,
+      subscription_id = helper$subscription_id
+    )
+
+  # if account does not exist, create
+  if (!(helper$account_test_name %in% account_info$name)){
+
+    AzureDatalakeStoreAccount::adla_create(
+      token = helper$token,
+      subscription_id = helper$subscription_id,
+      resource_group_name = helper$resource_group_name,
+      name = helper$account_test_name,
+      body = list(location = "centralus")
+    )
+
+    Sys.sleep(60)
+  }
+
+  helper$adls <- AzureDatalakeStore::adls(
     base_url = adls_url(helper$account_test_name),
     token = helper$token
+  )
+
+  # stop if not empty
+  assertthat::assert_that(
+    is.null(adls_list_status(helper$adls)),
+    msg = paste("Datalake Store:", helper$account_test_name, "is not empty.")
   )
 
 }

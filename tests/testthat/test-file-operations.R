@@ -3,6 +3,8 @@ context("file operations")
 library("httr")
 library("readr")
 
+# see helper.R for setup
+
 test_that("we can create a file", {
   skip_on_cran()
   skip_on_travis()

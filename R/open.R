@@ -3,7 +3,6 @@
 #' @inheritParams adls_mkdirs
 #' @param offset numeric, the position of the starting-byte
 #' @param length numeric, the number of bytes to be processed
-#' @param encoding character, encoding to use
 #'
 #' @return response object from [`httr::VERB()`]
 #' @seealso [`adls()`], [`adls_url()`]
@@ -30,13 +29,12 @@
 #' }
 #' @export
 #'
-adls_open_to_text <- function(adls, path, offset = NULL, length = NULL,
-                              encoding = "UTF-8") {
+adls_open_to_raw <- function(adls, path, offset = NULL, length = NULL) {
 
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    is.character(path) && identical(length(path), 1L),
+    assertthat::is.string(path),
     is.numeric(offset) || is.null(offset),
     is.numeric(length) || is.null(length)
   )
@@ -62,7 +60,57 @@ adls_open_to_text <- function(adls, path, offset = NULL, length = NULL,
 
   result <-
     response %>%
-    httr::content(as = "text", encoding = encoding)
+    httr::content(as = "raw")
 
   result
 }
+
+#' @param encoding character, encoding to use
+#' @rdname adls_open_to_raw
+#' @export
+#'
+adls_open_to_text <- function(adls, path, encoding = "UTF-8",
+                              offset = NULL, length = NULL) {
+
+  # validate inputs
+  assertthat::assert_that(
+    assertthat::is.string(encoding)
+  )
+
+  result <-
+    adls_open_to_raw(
+      adls = adls,
+      path = path,
+      offset = offset,
+      length = length
+    ) %>%
+    readBin(character()) %>%
+    iconv(from = encoding, to = "UTF-8")
+
+  result
+}
+
+#' @param path_local character, path to file on local computer
+#' @rdname adls_open_to_raw
+#' @export
+#'
+adls_open_to_file <- function(adls, path, path_local,
+                              offset = NULL, length = NULL) {
+
+  # validate inputs
+  assertthat::assert_that(
+    assertthat::is.string(path_local)
+  )
+
+  adls_open_to_raw(
+    adls = adls,
+    path = path,
+    offset = offset,
+    length = length
+  ) %>%
+  writeBin(con = path_local)
+
+  TRUE
+}
+
+

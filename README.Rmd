@@ -40,7 +40,7 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 * Upload a file to a directory  **done** (works for text, need to check for binary files) - TODO: example
 
-* Read a file from a directory
+* Read a file from a directory **done**
 
 * Append to a file in a directory
 
