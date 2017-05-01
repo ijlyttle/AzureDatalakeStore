@@ -2,6 +2,7 @@
 
 export("%>%")
 export(adls)
+export(adls_append)
 export(adls_create)
 export(adls_delete)
 export(adls_list_status)

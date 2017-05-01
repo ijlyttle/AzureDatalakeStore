@@ -2,7 +2,6 @@
 #'
 #' @inheritParams adls_mkdirs
 #' @param form_file  form_file made using [`httr::upload_file()`] or [`curl::form_file()`]
-#' @param overwrite  logical, indicating if existing file is to be overwritten
 #'
 #' @return A logical indicating success of the operation.
 #' @seealso [`adls()`], [`adls_url()`]
@@ -29,29 +28,21 @@
 #' }
 #' @export
 #'
-adls_create <- function(adls, form_file, path, overwrite = FALSE, permission = NULL) {
-
-  if (!is.null(permission)) {
-    permission <- as.integer(permission)
-  }
+adls_append <- function(adls, form_file, path) {
 
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
     inherits(form_file, "form_file"),
-    is.character(path) && identical(length(path), 1L),
-    is.logical(overwrite),
-    is.integer(permission) || is.null(permission)
+    assertthat::is.string(path)
   )
 
   url <-
     adls$base_url %>%
     url_path_append(path) %>%
     url_query_append(
-      op = "CREATE",
-      write = "true",
-      overwrite = lgl_to_char(overwrite),
-      permission = permission
+      op = "APPEND",
+      write = "true"
     )
 
   # note: write = "true" is not in the WebHDFS documentation, but it does appear here:
@@ -62,28 +53,14 @@ adls_create <- function(adls, form_file, path, overwrite = FALSE, permission = N
 
   response <-
     url %>%
-    httr::PUT(
+    httr::POST(
       body = form_file,
       config = httr::config(token = adls$token)
+    ) %>%
+    httr::stop_for_status(
+      response,
+      task = "append file on Azure Datalake store"
     )
 
-  # determine success
-  if (identical(response$status_code, 201L)) {
-    result <- TRUE
-  } else {
-    result <- FALSE
-  }
-
-  # parse warning
-  if (identical(response$status_code, 403L)) {
-    error_message <- unpack_response(response)
-    message(error_message$RemoteException$message)
-  }
-
-  httr::stop_for_status(
-    response,
-    task = "create (write) file on Azure Datalake store"
-  )
-
-  result
+  TRUE
 }

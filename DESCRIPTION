@@ -17,7 +17,8 @@ BugReports: https://github.com/ijlyttle/AzureDatalakeStore/issues
 Suggests: covr,
     testthat,
     AzureDatalakeStoreAccount,
-    digest
+    digest,
+    readr
 Imports: glue,
     httr,
     jsonlite,
