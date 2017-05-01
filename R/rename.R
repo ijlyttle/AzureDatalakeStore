@@ -7,7 +7,7 @@
 #'
 #' @return A logical indicating the success of the operation.
 #' @seealso [`adls()`], [`adls_url()`]
-#'   WebHDFS documentation for ["Delete a File/Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Delete_a_FileDirectory)
+#'   WebHDFS documentation for ["Rename a File/Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Rename_a_FileDirectory)
 #' @examples
 #' \dontrun{
 #'   library("AzureOAuth")
@@ -38,8 +38,8 @@ adls_rename <- function(adls, path, destination) {
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    is.character(path),
-    is.character(destination)
+    is.character(path) && identical(length(path), 1L),
+    is.character(destination) && identical(length(destination), 1L)
   )
 
   url <-

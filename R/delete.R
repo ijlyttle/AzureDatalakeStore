@@ -38,7 +38,7 @@ adls_delete <- function(adls, path = NULL, recursive = FALSE) {
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    is.character(path) || is.null(path),
+    (is.character(path) && identical(length(path), 1L)) || is.null(path),
     is.logical(recursive)
   )
 
@@ -47,7 +47,7 @@ adls_delete <- function(adls, path = NULL, recursive = FALSE) {
     url_path_append(path) %>%
     url_query_append(
       op = "DELETE",
-      recursive = recursive
+      recursive = lgl_to_char(recursive)
     )
 
   # hack to compose URL properly for root directory

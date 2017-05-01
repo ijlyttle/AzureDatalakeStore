@@ -74,7 +74,6 @@ unpack_response <- function(response, ...) {
 
 }
 
-
 #' Makes a datetime object using milliseconds
 #'
 #' @param x   numeric, number of milliseconds from UNIX epoch
@@ -86,3 +85,14 @@ unpack_response <- function(response, ...) {
 POSIXct_from_ms <- function(x, tz = "UTC") {
   as.POSIXct(x/1000, tz = tz, origin = "1970-01-01")
 }
+
+lgl_to_char <- function(x) {
+
+  if (as.logical(x)) {
+    "true"
+  } else {
+    "false"
+  }
+
+}
+

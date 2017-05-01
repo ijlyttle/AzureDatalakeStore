@@ -11,13 +11,6 @@ helper <- list(
   application_name = Sys.getenv("azure_native_application_name")
 )
 
-helper$names_status <- c(
-  "location", "tags", "id", "name", "type",
-  "properties.provisioningState", "properties.state",
-  "properties.endpoint", "properties.accountId",
-  "properties.creationTime", "properties.lastModifiedTime"
-)
-
 if (interactive()){
 
   helper$token <- AzureOAuth::oauth_token_azure(

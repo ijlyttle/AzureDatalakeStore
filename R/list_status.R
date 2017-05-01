@@ -36,7 +36,7 @@ adls_list_status <- function(adls, path = NULL) {
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    is.character(path) || is.null(path)
+    (is.character(path) && identical(length(path), 1L)) || is.null(path)
   )
 
   url <-

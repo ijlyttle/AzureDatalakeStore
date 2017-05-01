@@ -38,11 +38,13 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 * Delete a file/directory **done**
 
-* Upload a file to a directory
+* Upload a file to a directory  **done** (works for text, need to check for binary files) - TODO: example
 
 * Read a file from a directory
 
 * Append to a file in a directory
+
+For the file operations, it may be easiest to provide a filepath (even a temporary one). This makes us dependent on a filesystem, whereas I would rather not be (shinyapps.io, for example).
 
 ### Tests
 

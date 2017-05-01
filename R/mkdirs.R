@@ -41,7 +41,7 @@ adls_mkdirs <- function(adls, path, permission = NULL) {
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    is.character(path),
+    is.character(path) && identical(length(path), 1L),
     is.integer(permission) || is.null(permission)
   )
 
