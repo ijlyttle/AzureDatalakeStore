@@ -45,9 +45,11 @@ if (interactive()){
     token = helper$token
   )
 
+  is_empty <- is.null(adls_list_status(helper$adls))
+
   # stop if not empty
   assertthat::assert_that(
-    is.null(adls_list_status(helper$adls)),
+    is_empty,
     msg = paste("Datalake Store:", helper$account_test_name, "is not empty.")
   )
 

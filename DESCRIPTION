@@ -22,7 +22,7 @@ Imports: glue,
     httr,
     jsonlite,
     magrittr,
-    assertthat,
+    assertthat (>= 0.2.0),
     AzureOAuth,
     tibble
 Remotes: ijlyttle/AzureOAuth,
