@@ -80,7 +80,7 @@
     </div>
 
     
-    <p>Apparently returns <code>TRUE</code> if folder already exists.</p>
+    <p>Make a directory.</p>
     
 
     <pre class="usage"><span class='fu'>adls_mkdirs</span>(<span class='no'>adls</span>, <span class='no'>path</span>, <span class='kw'>permission</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -90,16 +90,16 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>adls</th>
-      <td><p><code>adls</code> S3 object, generated using <code><a href='adls.html'>adls()</a></code></p></td>
+      <td><p><code>adls</code> S3 object, generated using <code><a href='adls.html'>adls()</a></code>.</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>character, directory to act on, defined with respect to path
-defined in <code>adls$base_url</code> - <code>file.path()</code> can be used here</p></td>
+      <td><p><code>character</code>, remote path, defined with respect to root-path
+in <code>adls$base_url</code>. You may find <code>file.path()</code> to be useful to compose the path.</p></td>
     </tr>
     <tr>
       <th>permission</th>
-      <td><p>integer (octal form), permissions to assign to the directory</p></td>
+      <td><p><code>integer</code> (octal form), permission to assign to the object.</p></td>
     </tr>
     </table>
     
@@ -109,16 +109,13 @@ defined in <code>adls$base_url</code> - <code>file.path()</code> can be used her
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='adls.html'>adls()</a></code>, <code><a href='adls_url.html'>adls_url()</a></code>
-WebHDFS documentation for <a href = 'http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Make_a_Directory'>"Make a Directory"</a></p>
+    <p>WebHDFS documentation for <a href = 'http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Make_a_Directory'>"Make a Directory"</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
-    <span class='fu'>library</span>(<span class='st'>"AzureOAuth"</span>)
-
     <span class='co'># create token (assumes Azure native app)</span>
-    <span class='no'>token</span> <span class='kw'>&lt;-</span> <span class='fu'>oauth_token_azure</span>(
+    <span class='no'>token</span> <span class='kw'>&lt;-</span> <span class='kw'>AzureOAuth</span><span class='kw'>::</span><span class='fu'>oauth_token_azure</span>(
       <span class='kw'>tenant_id</span> <span class='kw'>=</span> <span class='st'>"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>,
       <span class='kw'>application_id</span> <span class='kw'>=</span> <span class='st'>"ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj"</span>,
       <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"foo"</span>

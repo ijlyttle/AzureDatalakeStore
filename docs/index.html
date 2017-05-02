@@ -79,16 +79,28 @@
 <li><p>List a directory <strong>done</strong></p></li>
 <li><p>Rename a file/folder in a directory <strong>done</strong></p></li>
 <li><p>Delete a file/directory <strong>done</strong></p></li>
-<li><p>Upload a file to a directory</p></li>
-<li><p>Read a file from a directory</p></li>
-<li><p>Append to a file in a directory</p></li>
+<li><p>Upload a file to a directory <strong>done</strong></p></li>
+<li><p>Read a file from a directory <strong>done</strong></p></li>
+<li><p>Append to a file in a directory <strong>done</strong></p></li>
+<li><p>Get file status (file/directory) (consider sending back as data-frame and reusing format from list_status)</p></li>
+<li><p>Get contents summary (directory)</p></li>
+<li><p>Concatenate files</p></li>
 </ul>
-<div id="tests" class="section level3">
-<h3 class="hasAnchor">
-<a href="#tests" class="anchor"></a>Tests</h3>
-<p>Directory ops: make, list, rename, list (again), delete, list (again)</p>
-<p>File ops: create (upload), list, download, append, download (again), rename, list (again), delete, list (again)</p>
-</div>
+<p>For the file uploads, it may be easiest to provide a filepath (even a temporary one). This makes us dependent on a filesystem, whereas I would rather not be (shinyapps.io, for example).</p>
+<p>Following <strong>readr</strong>, file can be:</p>
+<ul>
+<li>form_file (<code>upload_file()</code>)</li>
+</ul>
+<p>Near future:</p>
+<ul>
+<li>single string</li>
+<li>no newlines, interpret as path, guess type</li>
+<li>one-or-more newlines, interpret as text</li>
+<li>raw vector, literal data</li>
+</ul>
+<p>Farther future, handle connections and files that begin with <code>http://</code>, etc.</p>
+<p>How about <code>adls_is_empty()</code> to see if a path returns anything?</p>
+<p>Type-stability for functions that return file-status objects. Thinking of <code>list_status</code> and <code>get_file_status</code>. Return empty data-frames or NULL? NULL.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">

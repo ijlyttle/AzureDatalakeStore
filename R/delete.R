@@ -2,11 +2,11 @@
 #'
 #'
 #' @inheritParams adls_mkdirs
-#' @param recursive            logical, indicates if operation will act on
+#' @param recursive            `logical`, indicates if operation will act on
 #'   content in subdirectories
 #'
-#' @return A logical indicating the success of the operation.
-#' @seealso [`adls()`], [`adls_url()`]
+#' @return A `logical` indicating the success of the operation.
+#' @seealso
 #'   WebHDFS documentation for ["Delete a File/Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Delete_a_FileDirectory)
 #' @examples
 #' \dontrun{

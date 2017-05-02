@@ -7,25 +7,24 @@
 adls_append(adls, file, path)
 }
 \arguments{
-\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
+\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}.}
 
-\item{file}{form_file, "thing" to be uploaded, made using \code{\link[httr:upload_file]{httr::upload_file()}} or \code{\link[curl:form_file]{curl::form_file()}}}
+\item{file}{\code{form_file} S3 object, representing the "thing" to be uploaded.
+You can compose this using \code{\link[httr:upload_file]{httr::upload_file()}} or \code{\link[curl:form_file]{curl::form_file()}}.}
 
-\item{path}{character, directory to act on, defined with respect to path
-defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}
+\item{path}{\code{character}, remote path, defined with respect to root-path
+in \code{adls$base_url}. You may find \code{\link[=file.path]{file.path()}} to be useful to compose the path.}
 }
 \value{
-A logical indicating success of the operation.
+A \code{logical} indicating success of the operation.
 }
 \description{
 Append to a file.
 }
 \examples{
 \dontrun{
-  library("AzureOAuth")
-
   # create token (assumes Azure native app)
-  token <- oauth_token_azure(
+  token <- AzureOAuth::oauth_token_azure(
     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
     name = "foo"
@@ -37,11 +36,25 @@ Append to a file.
     token = token
   )
 
+  # for this example, write a temporary file
+  temp_file <- tempfile(fileext = ".csv")
+  write.csv(iris, file = temp_file)
+
   # upload file
-  adls_mkdirs(adls_example, "baz")
+  adls_create(
+    adls_example,
+    file = httr::file_upload(temp_file),
+    path = "iris.csv"
+  )
+
+  # append with another copy of iris.csv
+  adls_append(
+    adls_example,
+    file = httr::file_upload(temp_file),
+    path = "iris.csv"
+  )
 }
 }
 \seealso{
-\code{\link[=adls]{adls()}}, \code{\link[=adls_url]{adls_url()}}
-WebHDFS documentation for \href{http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Open_and_Read_a_File}{"Open and Read a File"}
+WebHDFS documentation for \href{http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Append_to_a_File}{"Append to a File"}
 }

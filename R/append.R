@@ -2,15 +2,13 @@
 #'
 #' @inheritParams adls_create
 #'
-#' @return A logical indicating success of the operation.
-#' @seealso [`adls()`], [`adls_url()`]
-#'   WebHDFS documentation for ["Open and Read a File"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Open_and_Read_a_File)
+#' @return A `logical` indicating success of the operation.
+#' @seealso
+#'   WebHDFS documentation for ["Append to a File"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Append_to_a_File)
 #' @examples
 #' \dontrun{
-#'   library("AzureOAuth")
-#'
 #'   # create token (assumes Azure native app)
-#'   token <- oauth_token_azure(
+#'   token <- AzureOAuth::oauth_token_azure(
 #'     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 #'     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
 #'     name = "foo"
@@ -22,8 +20,23 @@
 #'     token = token
 #'   )
 #'
+#'   # for this example, write a temporary file
+#'   temp_file <- tempfile(fileext = ".csv")
+#'   write.csv(iris, file = temp_file)
+#'
 #'   # upload file
-#'   adls_mkdirs(adls_example, "baz")
+#'   adls_create(
+#'     adls_example,
+#'     file = httr::file_upload(temp_file),
+#'     path = "iris.csv"
+#'   )
+#'
+#'   # append with another copy of iris.csv
+#'   adls_append(
+#'     adls_example,
+#'     file = httr::file_upload(temp_file),
+#'     path = "iris.csv"
+#'   )
 #' }
 #' @export
 #'
@@ -50,7 +63,10 @@ adls_append <- function(adls, file, path) {
     httr::POST(
       body = file,
       config = httr::config(token = adls$token)
+    ) %>%
+    httr::stop_for_status(
+      task = "append to file on Azure Datalake store"
     )
 
-  response
+  TRUE
 }

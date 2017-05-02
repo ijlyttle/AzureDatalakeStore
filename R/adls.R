@@ -1,22 +1,25 @@
 #' Create an adls object.
 #'
-#' TODO: describe the components and why it makes things easier to keep them together.
+#' All the functions you will use to access the Azure Data Lake Store will
+#' need to know where your data lake is, and how to get into it. Thus, the
+#' location and access information are stored in a single object you
+#' instantiate once, then use with each function call.
 #'
-#' @param base_url    character or `url` object made using [`httr::parse_url()`], this is
-#'   the base URL for the datalake store. It may be convenient to use [`adls_url()`] to construct this.
-#' @param token       `Token2.0` reference-class (R6) object from **httr**.
-#'   It may be convenient to use [`AzureOAuth::oauth_token_azure()`] to construct this.
+#' @param base_url    `character` or `url` object made using [`httr::parse_url()`],
+#'   the base URL for the data lake store.
+#'   It may be convenient to use [`adls_url()`] to make your URL.
+#' @param token       `Token2.0` reference-class (R6) object, [`httr::Token-class`].
+#'   It may be convenient to use [`AzureOAuth::oauth_token_azure()`] or
+#'   [`AzureOAuth::oauth_service_token_azure()`] to obtain your token.
 #'
 #' @return An `adls` S3 object.
-#' @seealso [`AzureOAuth::oauth_token_azure()`],
+#' @seealso [`adls_url()`], [`AzureOAuth::oauth_token_azure()`],
 #'   [`AzureOAuth::oauth_service_token_azure()`],
 #'
 #' @examples
 #' \dontrun{
-#'   library("AzureOAuth")
-#'
 #'   # create token (assumes Azure native app)
-#'   token <- oauth_token_azure(
+#'   token <- AzureOAuth::oauth_token_azure(
 #'     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 #'     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
 #'     name = "foo"

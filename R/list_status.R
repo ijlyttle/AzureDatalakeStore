@@ -3,15 +3,13 @@
 #'
 #' @inheritParams adls_mkdirs
 #'
-#' @return If empty, returns `NULL`. Otherwise returns `tbl_df` with with directory listing
+#' @return If empty, returns `NULL`. Otherwise returns `tbl_df` with with directory listing.
 #' @seealso [`adls()`], [`adls_url()`]
 #'   WebHDFS documentation for ["List a Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#List_a_Directory)
 #' @examples
 #' \dontrun{
-#'   library("AzureOAuth")
-#'
 #'   # create token (assumes Azure native app)
-#'   token <- oauth_token_azure(
+#'   token <- AzureOAuth::oauth_token_azure(
 #'     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 #'     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
 #'     name = "foo"

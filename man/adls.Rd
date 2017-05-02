@@ -7,24 +7,27 @@
 adls(base_url, token)
 }
 \arguments{
-\item{base_url}{character or \code{url} object made using \code{\link[httr:parse_url]{httr::parse_url()}}, this is
-the base URL for the datalake store. It may be convenient to use \code{\link[=adls_url]{adls_url()}} to construct this.}
+\item{base_url}{\code{character} or \code{url} object made using \code{\link[httr:parse_url]{httr::parse_url()}},
+the base URL for the data lake store.
+It may be convenient to use \code{\link[=adls_url]{adls_url()}} to make your URL.}
 
-\item{token}{\code{Token2.0} reference-class (R6) object from \strong{httr}.
-It may be convenient to use \code{\link[AzureOAuth:oauth_token_azure]{AzureOAuth::oauth_token_azure()}} to construct this.}
+\item{token}{\code{Token2.0} reference-class (R6) object, \code{\link[httr:Token-class]{httr::Token}}.
+It may be convenient to use \code{\link[AzureOAuth:oauth_token_azure]{AzureOAuth::oauth_token_azure()}} or
+\code{\link[AzureOAuth:oauth_service_token_azure]{AzureOAuth::oauth_service_token_azure()}} to obtain your token.}
 }
 \value{
 An \code{adls} S3 object.
 }
 \description{
-TODO: describe the components and why it makes things easier to keep them together.
+All the functions you will use to access the Azure Data Lake Store will
+need to know where your data lake is, and how to get into it. Thus, the
+location and access information are stored in a single object you
+instantiate once, then use with each function call.
 }
 \examples{
 \dontrun{
-  library("AzureOAuth")
-
   # create token (assumes Azure native app)
-  token <- oauth_token_azure(
+  token <- AzureOAuth::oauth_token_azure(
     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
     name = "foo"
@@ -38,6 +41,6 @@ TODO: describe the components and why it makes things easier to keep them togeth
 }
 }
 \seealso{
-\code{\link[AzureOAuth:oauth_token_azure]{AzureOAuth::oauth_token_azure()}},
+\code{\link[=adls_url]{adls_url()}}, \code{\link[AzureOAuth:oauth_token_azure]{AzureOAuth::oauth_token_azure()}},
 \code{\link[AzureOAuth:oauth_service_token_azure]{AzureOAuth::oauth_service_token_azure()}},
 }

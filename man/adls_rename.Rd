@@ -7,16 +7,16 @@
 adls_rename(adls, path, destination)
 }
 \arguments{
-\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
+\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}.}
 
-\item{path}{character, directory to act on, defined with respect to path
-defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}
+\item{path}{\code{character}, remote path, defined with respect to root-path
+in \code{adls$base_url}. You may find \code{\link[=file.path]{file.path()}} to be useful to compose the path.}
 
-\item{destination}{character, path for the destination with respect to path
-defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}
+\item{destination}{\code{character}, remote path for the destination,
+defined with respect to root-path in \code{adls$base_url}.}
 }
 \value{
-A logical indicating the success of the operation.
+A \code{logical} indicating the success of the operation.
 }
 \description{
 Rename a file/directory.
@@ -46,6 +46,5 @@ Rename a file/directory.
 }
 }
 \seealso{
-\code{\link[=adls]{adls()}}, \code{\link[=adls_url]{adls_url()}}
 WebHDFS documentation for \href{http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Rename_a_FileDirectory}{"Rename a File/Directory"}
 }

@@ -27,17 +27,36 @@ What we will need
 
 -   Delete a file/directory **done**
 
--   Upload a file to a directory
+-   Upload a file to a directory **done**
 
--   Read a file from a directory
+-   Read a file from a directory **done**
 
--   Append to a file in a directory
+-   Append to a file in a directory **done**
 
-### Tests
+-   Get file status (file/directory) (consider sending back as data-frame and reusing format from list\_status)
 
-Directory ops: make, list, rename, list (again), delete, list (again)
+-   Get contents summary (directory)
 
-File ops: create (upload), list, download, append, download (again), rename, list (again), delete, list (again)
+-   Concatenate files
+
+For the file uploads, it may be easiest to provide a filepath (even a temporary one). This makes us dependent on a filesystem, whereas I would rather not be (shinyapps.io, for example).
+
+Following **readr**, file can be:
+
+-   form\_file (`upload_file()`)
+
+Near future:
+
+-   single string
+-   no newlines, interpret as path, guess type
+-   one-or-more newlines, interpret as text
+-   raw vector, literal data
+
+Farther future, handle connections and files that begin with `http://`, etc.
+
+How about `adls_is_empty()` to see if a path returns anything?
+
+Type-stability for functions that return file-status objects. Thinking of `list_status` and `get_file_status`. Return empty data-frames or NULL? NULL.
 
 Installation
 ------------

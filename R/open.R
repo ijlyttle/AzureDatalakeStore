@@ -1,18 +1,20 @@
 #' Create and write to a file.
 #'
 #' @inheritParams adls_mkdirs
-#' @param offset numeric, the position of the starting-byte
-#' @param length numeric, the number of bytes to be processed
+#' @param offset `numeric`, the position of the starting-byte.
+#' @param length `numeric`, the number of bytes to be processed.
 #'
-#' @return response object from [`httr::VERB()`]
-#' @seealso [`adls()`], [`adls_url()`]
+#'
+#' @return
+#' \describe{
+#'   \item{`adls_open_to_raw()`}{A `raw` vector.}
+#' }
+#' @seealso
 #'   WebHDFS documentation for ["Open and Read a File"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Open_and_Read_a_File)
 #' @examples
 #' \dontrun{
-#'   library("AzureOAuth")
-#'
 #'   # create token (assumes Azure native app)
-#'   token <- oauth_token_azure(
+#'   token <- AzureOAuth::oauth_token_azure(
 #'     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 #'     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
 #'     name = "foo"
@@ -24,8 +26,22 @@
 #'     token = token
 #'   )
 #'
+#'   # for this example, write a temporary file
+#'   temp_file <- tempfile(fileext = ".csv")
+#'   write.csv(iris, file = temp_file)
+#'
 #'   # upload file
-#'   adls_mkdirs(adls_example, "baz")
+#'   adls_create(
+#'     adls_example,
+#'     file = httr::file_upload(temp_file),
+#'     path = "iris.csv"
+#'   )
+#'
+#'   # read file to a string
+#'   adls_open_to_text(
+#'     adls_example,
+#'     path = "iris.csv"
+#'   )
 #' }
 #' @export
 #'
@@ -65,8 +81,14 @@ adls_open_to_raw <- function(adls, path, offset = NULL, length = NULL) {
   result
 }
 
-#' @param encoding character, encoding to use
 #' @rdname adls_open_to_raw
+#'
+#' @param encoding `character`, encoding to use.
+#'
+#' @return
+#' \describe{
+#'   \item{`adls_open_to_text()`}{A single `character` string.}
+#' }
 #' @export
 #'
 adls_open_to_text <- function(adls, path, encoding = "UTF-8",
@@ -90,8 +112,14 @@ adls_open_to_text <- function(adls, path, encoding = "UTF-8",
   result
 }
 
-#' @param path_local character, path to file on local computer
 #' @rdname adls_open_to_raw
+#'
+#' @param path_local `character`, path on local computer.
+#'
+#' @return
+#' \describe{
+#'   \item{`adls_open_to_file()`}{A `logical` indicating success of the operation.}
+#' }
 #' @export
 #'
 adls_open_to_file <- function(adls, path, path_local,

@@ -7,16 +7,16 @@
 adls_delete(adls, path = NULL, recursive = FALSE)
 }
 \arguments{
-\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
+\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}.}
 
-\item{path}{character, directory to act on, defined with respect to path
-defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}
+\item{path}{\code{character}, remote path, defined with respect to root-path
+in \code{adls$base_url}. You may find \code{\link[=file.path]{file.path()}} to be useful to compose the path.}
 
-\item{recursive}{logical, indicates if operation will act on
+\item{recursive}{\code{logical}, indicates if operation will act on
 content in subdirectories}
 }
 \value{
-A logical indicating the success of the operation.
+A \code{logical} indicating the success of the operation.
 }
 \description{
 Delete a file/directory.
@@ -46,6 +46,5 @@ Delete a file/directory.
 }
 }
 \seealso{
-\code{\link[=adls]{adls()}}, \code{\link[=adls_url]{adls_url()}}
 WebHDFS documentation for \href{http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Delete_a_FileDirectory}{"Delete a File/Directory"}
 }

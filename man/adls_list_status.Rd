@@ -7,23 +7,21 @@
 adls_list_status(adls, path = NULL)
 }
 \arguments{
-\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
+\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}.}
 
-\item{path}{character, directory to act on, defined with respect to path
-defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}
+\item{path}{\code{character}, remote path, defined with respect to root-path
+in \code{adls$base_url}. You may find \code{\link[=file.path]{file.path()}} to be useful to compose the path.}
 }
 \value{
-If empty, returns \code{NULL}. Otherwise returns \code{tbl_df} with with directory listing
+If empty, returns \code{NULL}. Otherwise returns \code{tbl_df} with with directory listing.
 }
 \description{
 List a directory.
 }
 \examples{
 \dontrun{
-  library("AzureOAuth")
-
   # create token (assumes Azure native app)
-  token <- oauth_token_azure(
+  token <- AzureOAuth::oauth_token_azure(
     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
     name = "foo"

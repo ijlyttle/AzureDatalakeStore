@@ -80,7 +80,10 @@
     </div>
 
     
-    <p>TODO: describe the components and why it makes things easier to keep them together.</p>
+    <p>All the functions you will use to access the Azure Data Lake Store will
+need to know where your data lake is, and how to get into it. Thus, the
+location and access information are stored in a single object you
+instantiate once, then use with each function call.</p>
     
 
     <pre class="usage"><span class='fu'>adls</span>(<span class='no'>base_url</span>, <span class='no'>token</span>)</pre>
@@ -90,13 +93,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>base_url</th>
-      <td><p>character or <code>url</code> object made using <code><a href='http://www.rdocumentation.org/packages/httr/topics/parse_url'>httr::parse_url()</a></code>, this is
-the base URL for the datalake store. It may be convenient to use <code><a href='adls_url.html'>adls_url()</a></code> to construct this.</p></td>
+      <td><p><code>character</code> or <code>url</code> object made using <code><a href='http://www.rdocumentation.org/packages/httr/topics/parse_url'>httr::parse_url()</a></code>,
+the base URL for the data lake store.
+It may be convenient to use <code><a href='adls_url.html'>adls_url()</a></code> to make your URL.</p></td>
     </tr>
     <tr>
       <th>token</th>
-      <td><p><code>Token2.0</code> reference-class (R6) object from <strong>httr</strong>.
-It may be convenient to use <code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_token_azure'>AzureOAuth::oauth_token_azure()</a></code> to construct this.</p></td>
+      <td><p><code>Token2.0</code> reference-class (R6) object, <code><a href='http://www.rdocumentation.org/packages/httr/topics/Token-class'>httr::Token</a></code>.
+It may be convenient to use <code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_token_azure'>AzureOAuth::oauth_token_azure()</a></code> or
+<code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_service_token_azure'>AzureOAuth::oauth_service_token_azure()</a></code> to obtain your token.</p></td>
     </tr>
     </table>
     
@@ -106,16 +111,14 @@ It may be convenient to use <code><a href='http://www.rdocumentation.org/package
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_token_azure'>AzureOAuth::oauth_token_azure()</a></code>,
+    <p><code><a href='adls_url.html'>adls_url()</a></code>, <code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_token_azure'>AzureOAuth::oauth_token_azure()</a></code>,
 <code><a href='http://www.rdocumentation.org/packages/AzureOAuth/topics/oauth_service_token_azure'>AzureOAuth::oauth_service_token_azure()</a></code>,</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
-    <span class='fu'>library</span>(<span class='st'>"AzureOAuth"</span>)
-
     <span class='co'># create token (assumes Azure native app)</span>
-    <span class='no'>token</span> <span class='kw'>&lt;-</span> <span class='fu'>oauth_token_azure</span>(
+    <span class='no'>token</span> <span class='kw'>&lt;-</span> <span class='kw'>AzureOAuth</span><span class='kw'>::</span><span class='fu'>oauth_token_azure</span>(
       <span class='kw'>tenant_id</span> <span class='kw'>=</span> <span class='st'>"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>,
       <span class='kw'>application_id</span> <span class='kw'>=</span> <span class='st'>"ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj"</span>,
       <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"foo"</span>

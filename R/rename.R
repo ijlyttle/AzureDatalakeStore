@@ -2,11 +2,11 @@
 #'
 #'
 #' @inheritParams adls_mkdirs
-#' @param destination          character, path for the destination with respect to path
-#'   defined in `adls$base_url` - [`file.path()`] can be used here
+#' @param destination          `character`, remote path for the destination,
+#' defined with respect to root-path in `adls$base_url`.
 #'
-#' @return A logical indicating the success of the operation.
-#' @seealso [`adls()`], [`adls_url()`]
+#' @return A `logical` indicating the success of the operation.
+#' @seealso
 #'   WebHDFS documentation for ["Rename a File/Directory"](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Rename_a_FileDirectory)
 #' @examples
 #' \dontrun{

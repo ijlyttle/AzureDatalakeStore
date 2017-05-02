@@ -14,31 +14,39 @@ adls_open_to_text(adls, path, encoding = "UTF-8", offset = NULL,
 adls_open_to_file(adls, path, path_local, offset = NULL, length = NULL)
 }
 \arguments{
-\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
+\item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}.}
 
-\item{path}{character, directory to act on, defined with respect to path
-defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}
+\item{path}{\code{character}, remote path, defined with respect to root-path
+in \code{adls$base_url}. You may find \code{\link[=file.path]{file.path()}} to be useful to compose the path.}
 
-\item{offset}{numeric, the position of the starting-byte}
+\item{offset}{\code{numeric}, the position of the starting-byte.}
 
-\item{length}{numeric, the number of bytes to be processed}
+\item{length}{\code{numeric}, the number of bytes to be processed.}
 
-\item{encoding}{character, encoding to use}
+\item{encoding}{\code{character}, encoding to use.}
 
-\item{path_local}{character, path to file on local computer}
+\item{path_local}{\code{character}, path on local computer.}
 }
 \value{
-response object from \code{\link[httr:VERB]{httr::VERB()}}
+\describe{
+\item{\code{adls_open_to_raw()}}{A \code{raw} vector.}
+}
+
+\describe{
+\item{\code{adls_open_to_text()}}{A single \code{character} string.}
+}
+
+\describe{
+\item{\code{adls_open_to_file()}}{A \code{logical} indicating success of the operation.}
+}
 }
 \description{
 Create and write to a file.
 }
 \examples{
 \dontrun{
-  library("AzureOAuth")
-
   # create token (assumes Azure native app)
-  token <- oauth_token_azure(
+  token <- AzureOAuth::oauth_token_azure(
     tenant_id = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
     application_id = "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
     name = "foo"
@@ -50,11 +58,24 @@ Create and write to a file.
     token = token
   )
 
+  # for this example, write a temporary file
+  temp_file <- tempfile(fileext = ".csv")
+  write.csv(iris, file = temp_file)
+
   # upload file
-  adls_mkdirs(adls_example, "baz")
+  adls_create(
+    adls_example,
+    file = httr::file_upload(temp_file),
+    path = "iris.csv"
+  )
+
+  # read file to a string
+  adls_open_to_text(
+    adls_example,
+    path = "iris.csv"
+  )
 }
 }
 \seealso{
-\code{\link[=adls]{adls()}}, \code{\link[=adls_url]{adls_url()}}
 WebHDFS documentation for \href{http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Open_and_Read_a_File}{"Open and Read a File"}
 }
