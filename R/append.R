@@ -1,7 +1,6 @@
-#' Create and write to a file.
+#' Append to a file.
 #'
-#' @inheritParams adls_mkdirs
-#' @param form_file  form_file made using [`httr::upload_file()`] or [`curl::form_file()`]
+#' @inheritParams adls_create
 #'
 #' @return A logical indicating success of the operation.
 #' @seealso [`adls()`], [`adls_url()`]
@@ -28,12 +27,12 @@
 #' }
 #' @export
 #'
-adls_append <- function(adls, form_file, path) {
+adls_append <- function(adls, file, path) {
 
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    inherits(form_file, "form_file"),
+    inherits(file, "form_file"),
     assertthat::is.string(path)
   )
 
@@ -42,25 +41,16 @@ adls_append <- function(adls, form_file, path) {
     url_path_append(path) %>%
     url_query_append(
       op = "APPEND",
-      write = "true"
+      write = "true",
+      append = "true"
     )
-
-  # note: write = "true" is not in the WebHDFS documentation, but it does appear here:
-  #
-  # https://blogs.msdn.microsoft.com/microsoftrservertigerteam/2017/03/14/using-r-to-perform-filesystem-operations-on-azure-data-lake-store/
-  #
-  # maybe this is some sort of local (Azure) modification?
 
   response <-
     url %>%
     httr::POST(
-      body = form_file,
+      body = file,
       config = httr::config(token = adls$token)
-    ) %>%
-    httr::stop_for_status(
-      response,
-      task = "append file on Azure Datalake store"
     )
 
-  TRUE
+  response
 }

@@ -4,12 +4,12 @@
 \alias{adls_create}
 \title{Create and write to a file.}
 \usage{
-adls_create(adls, form_file, path, overwrite = FALSE, permission = NULL)
+adls_create(adls, file, path, overwrite = FALSE, permission = NULL)
 }
 \arguments{
 \item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}}
 
-\item{form_file}{form_file made using \code{\link[httr:upload_file]{httr::upload_file()}} or \code{\link[curl:form_file]{curl::form_file()}}}
+\item{file}{form_file, "thing" to be uploaded, made using \code{\link[httr:upload_file]{httr::upload_file()}} or \code{\link[curl:form_file]{curl::form_file()}}}
 
 \item{path}{character, directory to act on, defined with respect to path
 defined in \code{adls$base_url} - \code{\link[=file.path]{file.path()}} can be used here}

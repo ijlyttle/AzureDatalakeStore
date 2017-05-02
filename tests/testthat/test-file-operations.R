@@ -17,7 +17,7 @@ test_that("we can create a file", {
   expect_true(
     adls_create(
       helper$adls,
-      form_file = upload_file(filename_local),
+      file = upload_file(filename_local),
       path = "iris.csv",
       overwrite = TRUE
     )
@@ -27,7 +27,7 @@ test_that("we can create a file", {
   expect_error(
     adls_create(
       helper$adls,
-      form_file = upload_file(filename_local),
+      file = upload_file(filename_local),
       path = "iris.csv",
       overwrite = FALSE
     )

@@ -1,7 +1,7 @@
 #' Create and write to a file.
 #'
 #' @inheritParams adls_mkdirs
-#' @param form_file  form_file made using [`httr::upload_file()`] or [`curl::form_file()`]
+#' @param file  form_file, "thing" to be uploaded, made using [`httr::upload_file()`] or [`curl::form_file()`]
 #' @param overwrite  logical, indicating if existing file is to be overwritten
 #'
 #' @return A logical indicating success of the operation.
@@ -29,7 +29,7 @@
 #' }
 #' @export
 #'
-adls_create <- function(adls, form_file, path, overwrite = FALSE, permission = NULL) {
+adls_create <- function(adls, file, path, overwrite = FALSE, permission = NULL) {
 
   if (!is.null(permission)) {
     permission <- as.integer(permission)
@@ -38,7 +38,7 @@ adls_create <- function(adls, form_file, path, overwrite = FALSE, permission = N
   # validate inputs
   assertthat::assert_that(
     inherits(adls, "adls"),
-    inherits(form_file, "form_file"),
+    inherits(file, "form_file"),
     is.character(path) && identical(length(path), 1L),
     is.logical(overwrite),
     is.integer(permission) || is.null(permission)
@@ -63,7 +63,7 @@ adls_create <- function(adls, form_file, path, overwrite = FALSE, permission = N
   response <-
     url %>%
     httr::PUT(
-      body = form_file,
+      body = file,
       config = httr::config(token = adls$token)
     )
 

@@ -42,15 +42,22 @@ WebHDFS seems to use a lot of redirects. However, this [Microsoft blog](https://
 
 * Read a file from a directory **done**
 
-* Append to a file in a directory
+* Append to a file in a directory **done**
 
 For the file uploads, it may be easiest to provide a filepath (even a temporary one). This makes us dependent on a filesystem, whereas I would rather not be (shinyapps.io, for example).
 
-### Tests
+Following **readr**, file can be:
 
-Directory ops: make, list, rename, list (again), delete, list (again)
+- form_file (`upload_file()`)
 
-File ops: create (upload), list, download, append, download (again), rename, list (again), delete, list (again)
+Near future
+
+- single string
+   - no newlines, interpret as path, guess type
+   - one-or-more newlines, interpret as text
+- raw vector, literal data
+
+Farther future, handle connections and files that begin with `http://`, etc.
 
 ## Installation
 

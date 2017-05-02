@@ -18,7 +18,8 @@ Suggests: covr,
     testthat,
     AzureDatalakeStoreAccount,
     digest,
-    readr
+    readr,
+    dplyr
 Imports: glue,
     httr,
     jsonlite,
