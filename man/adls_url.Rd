@@ -4,12 +4,15 @@
 \alias{adls_url}
 \title{Base URL}
 \usage{
-adls_url(adls_name, domain_name = "azuredatalakestore.net")
+adls_url(adls_name, path = NULL, domain_name = "azuredatalakestore.net")
 }
 \arguments{
-\item{adls_name}{character, Azure Data Lake Store name}
+\item{adls_name}{\code{character}, Azure Data Lake Store name}
 
-\item{domain_name}{character, domain name}
+\item{path}{\code{character}, path to add to default root.
+You may find \code{\link[=file.path]{file.path()}} to be useful to compose the path.}
+
+\item{domain_name}{\code{character}, domain name}
 }
 \value{
 \code{url} object returned by \code{\link[httr:parse_url]{httr::parse_url()}}

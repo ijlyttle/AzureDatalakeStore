@@ -11,7 +11,11 @@ test_that("can create url", {
   url_sample <-
     "https://foo.azuredatalakestore.net/webhdfs/v1"
 
-  expect_identical(adls_url("foo"), parse_url(url_sample))
+  expect_identical(build_url(adls_url("foo")), url_sample)
+  expect_identical(
+    build_url(adls_url("foo", path = "bar")),
+    file.path(url_sample, "bar")
+  )
 })
 
 test_that("adls constructor gives error when needed", {

@@ -65,8 +65,10 @@ print.adls <- function(x, ...){
 #'
 #' This is a convenience function to return the base URL for the service.
 #'
-#' @param adls_name    character, Azure Data Lake Store name
-#' @param domain_name  character, domain name
+#' @param adls_name    `character`, Azure Data Lake Store name
+#' @param path         `character`, path to add to default root.
+#'   You may find [`file.path()`] to be useful to compose the path.
+#' @param domain_name  `character`, domain name
 #'
 #' @return `url` object returned by [`httr::parse_url()`]
 #' @seealso Azure Datalake Store documentation on
@@ -75,12 +77,14 @@ print.adls <- function(x, ...){
 #'   adls_url("foo")
 #' @export
 #'
-adls_url <- function(adls_name, domain_name = "azuredatalakestore.net") {
+adls_url <- function(adls_name, path = NULL,
+                     domain_name = "azuredatalakestore.net") {
 
   url <-
     "https://{adls_name}.{domain_name}/webhdfs/v1" %>%
     glue::glue() %>%
-    httr::parse_url()
+    httr::parse_url() %>%
+    url_path_append(path)
 
   url
 }
