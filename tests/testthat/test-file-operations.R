@@ -71,3 +71,31 @@ test_that("we can delete the file", {
   expect_null(adls_list_status(helper$adls))
 })
 
+test_that("we can upload a file with spaces in the name", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_if_not(interactive())
+
+  filename_local <- tempfile(fileext = ".csv")
+  write_csv(iris, filename_local)
+
+  # upload the file
+  expect_true(
+    adls_create(
+      helper$adls,
+      file = upload_file(filename_local),
+      path = "iris with spaces.csv",
+      overwrite = TRUE
+    )
+  )
+
+  # we can rename the directory we just created
+  expect_true(adls_rename(helper$adls, "iris with spaces.csv", "iris new.csv"))
+
+  # we can delete the file we just renamed
+  expect_true(adls_delete(helper$adls, "iris new.csv"))
+
+  # the root directory is empty
+  expect_null(adls_list_status(helper$adls))
+})
+

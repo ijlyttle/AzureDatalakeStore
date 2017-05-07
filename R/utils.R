@@ -8,7 +8,9 @@
 #'
 url_path <- function(url, ...) {
 
-  url$path <- file.path(...)
+  url$path <-
+    file.path(...) %>%
+    purrr::map_chr(utils::URLencode)
 
   url
 }
@@ -18,7 +20,9 @@ url_path <- function(url, ...) {
 #'
 url_path_append <- function(url, ...) {
 
-  url$path <- file.path(c(url$path, ...))
+  url$path <-
+    file.path(c(url$path, ...)) %>%
+    purrr::map_chr(utils::URLencode)
 
   url
 }
@@ -28,12 +32,14 @@ url_path_append <- function(url, ...) {
 #'
 url_path_prepend <- function(url, ...) {
 
-  url$path <- file.path(c(..., url$path))
+  url$path <-
+    file.path(c(..., url$path)) %>%
+    purrr::map_chr(utils::URLencode)
 
   url
 }
 
-#' Path operators for URL.
+#' Query operators for URL.
 #'
 #' @inheritParams url_path
 #' @param ...     arguments to comprise or append the query
