@@ -71,7 +71,8 @@ adls_create <- function(adls, file, path, overwrite = FALSE, permission = NULL) 
     url %>%
     httr::PUT(
       body = file,
-      config = httr::config(token = adls$token)
+      config = httr::config(token = adls$token),
+      add_headers(`Transfer-Encoding` = "chunked")
     )
 
   # determine success
@@ -81,10 +82,13 @@ adls_create <- function(adls, file, path, overwrite = FALSE, permission = NULL) 
     result <- FALSE
   }
 
+  message(response$status_code)
+
   # parse warning
-  if (identical(response$status_code, 403L)) {
+  if (response$status_code %in% c(400L, 403L)) {
     error_message <- unpack_response(response)
-    message(error_message$RemoteException$message)
+    message(error_message)
+    # message(error_message$RemoteException$message)
   }
 
   httr::stop_for_status(

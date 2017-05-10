@@ -3,7 +3,7 @@
 \name{url_query}
 \alias{url_query}
 \alias{url_query_append}
-\title{Path operators for URL.}
+\title{Query operators for URL.}
 \usage{
 url_query(url, ...)
 
@@ -18,6 +18,6 @@ url_query_append(url, ...)
 \code{url} object
 }
 \description{
-Path operators for URL.
+Query operators for URL.
 }
 \keyword{internal}

@@ -62,7 +62,8 @@ adls_append <- function(adls, file, path) {
     url %>%
     httr::POST(
       body = file,
-      config = httr::config(token = adls$token)
+      config = httr::config(token = adls$token),
+      add_headers(`Transfer-Encoding` = "chunked")
     ) %>%
     httr::stop_for_status(
       task = "append to file on Azure Datalake store"
