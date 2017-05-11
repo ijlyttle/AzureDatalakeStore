@@ -27,6 +27,7 @@ Imports: glue,
     assertthat (>= 0.2.0),
     AzureOAuth,
     tibble,
-    utils
+    utils,
+    purrr
 Remotes: ijlyttle/AzureOAuth,
   ijlyttle/AzureDatalakeStoreAccount

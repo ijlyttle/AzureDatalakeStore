@@ -72,7 +72,7 @@ adls_create <- function(adls, file, path, overwrite = FALSE, permission = NULL) 
     httr::PUT(
       body = file,
       config = httr::config(token = adls$token),
-      add_headers(`Transfer-Encoding` = "chunked")
+      httr::add_headers(`Transfer-Encoding` = "chunked")
     )
 
   # determine success
