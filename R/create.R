@@ -82,8 +82,6 @@ adls_create <- function(adls, file, path, overwrite = FALSE, permission = NULL) 
     result <- FALSE
   }
 
-  message(response$status_code)
-
   # parse warning
   if (response$status_code %in% c(400L, 403L)) {
     error_message <- unpack_response(response)
