@@ -66,12 +66,17 @@ adls_create <- function(adls, file, path, overwrite = FALSE, permission = NULL) 
   # https://blogs.msdn.microsoft.com/microsoftrservertigerteam/2017/03/14/using-r-to-perform-filesystem-operations-on-azure-data-lake-store/
   #
   # maybe this is some sort of local (Azure) modification?
+  #
+  # I cannot get the 307 dance to work properly yet
+
+
 
   response <-
     url %>%
     httr::PUT(
       body = file,
       config = httr::config(token = adls$token),
+      # config = httr::config(followlocation = 1L, token = adls$token),
       httr::add_headers(`Transfer-Encoding` = "chunked")
     )
 

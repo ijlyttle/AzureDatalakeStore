@@ -60,7 +60,7 @@ adls_open_to_raw <- function(adls, path, offset = NULL, length = NULL) {
     url_path_append(path) %>%
     url_query_append(
       op = "OPEN",
-      read = "true",
+      # read = "true",
       offset = offset,
       length = length
     )
@@ -68,7 +68,7 @@ adls_open_to_raw <- function(adls, path, offset = NULL, length = NULL) {
   response <-
     url %>%
     httr::GET(
-     config = httr::config(token = adls$token)
+     config = httr::config(followlocation = 1L, token = adls$token)
     ) %>%
     httr::stop_for_status(
       task = "open file on Azure Datalake store"
