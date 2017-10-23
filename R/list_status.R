@@ -68,6 +68,7 @@ adls_list_status <- function(adls, path = NULL) {
   if (is.data.frame(result)){
     result$accessTime <- POSIXct_from_ms(result$accessTime)
     result$modificationTime <- POSIXct_from_ms(result$modificationTime)
+    result$length <- as.numeric(result$length)
 
     result <- tibble::as_data_frame(result)
   } else {
