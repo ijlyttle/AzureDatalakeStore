@@ -61,8 +61,11 @@ adls_list_status <- function(adls, path = NULL) {
   # - return NULL
   if (identical(httr::status_code(response), 404L)) {
     message(
-      glue::glue("Not found (HTTP 404): {url$path} - returning NULL")
+      "Not found (HTTP 404): ",
+      httr::build_url(url),
+      " - returning NULL"
     )
+    return(NULL)
   }
 
   response <-
