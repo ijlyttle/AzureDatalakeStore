@@ -54,7 +54,19 @@ adls_list_status <- function(adls, path = NULL) {
       httr::content_type_json(),
       httr::accept_json(),
       config = httr::config(token = adls$token)
-    ) %>%
+    )
+
+  # if 404: means cannot find file or directory
+  # - message that the path is not found
+  # - return NULL
+  if (identical(httr::status_code(response), 404L)) {
+    message(
+      glue::glue("Not found (HTTP 404): {url$path} - returning NULL")
+    )
+  }
+
+  response <-
+    response %>%
     httr::stop_for_status(
       task = "list directory on Azure Datalake store"
     )
