@@ -31,30 +31,7 @@
 #'
 adls_list_status <- function(adls, path = NULL) {
 
-  # validate inputs
-  assertthat::assert_that(
-    inherits(adls, "adls"),
-    (is.character(path) && identical(length(path), 1L)) || is.null(path)
-  )
-
-  url <-
-    adls$base_url %>%
-    url_path_append(path) %>%
-    url_query_append(op = "LISTSTATUS")
-
-  # hack to compose URL properly for root directory
-  if (is.null(path)) {
-    len <- length(url$path)
-    url$path[len] <- paste0(url$path[len], "/")
-  }
-
-  response <-
-    url %>%
-    httr::GET(
-      httr::content_type_json(),
-      httr::accept_json(),
-      config = httr::config(token = adls$token)
-    )
+  response <- adls_list_status_response(adls, path = path)
 
   # if 404: means cannot find file or directory
   # - message that the path is not found
@@ -91,4 +68,54 @@ adls_list_status <- function(adls, path = NULL) {
   }
 
   result
+}
+
+
+#' @rdname adls_list_status
+#'
+#' @return `logical` indicating if the path exists
+#' @export
+#'
+adls_path_exists <- function(adls, path = NULL) {
+
+  response <- adls_list_status_response(adls, path = path)
+
+  # if 404: means cannot find file or directory
+  # - message that the path is not found
+  # - return FALSE
+  if (identical(httr::status_code(response), 404L)) {
+    return(FALSE)
+  }
+
+  TRUE
+}
+
+adls_list_status_response <- function(adls, path = NULL) {
+
+  # validate inputs
+  assertthat::assert_that(
+    inherits(adls, "adls"),
+    (is.character(path) && identical(length(path), 1L)) || is.null(path)
+  )
+
+  url <-
+    adls$base_url %>%
+    url_path_append(path) %>%
+    url_query_append(op = "LISTSTATUS")
+
+  # hack to compose URL properly for root directory
+  if (is.null(path)) {
+    len <- length(url$path)
+    url$path[len] <- paste0(url$path[len], "/")
+  }
+
+  response <-
+    url %>%
+    httr::GET(
+      httr::content_type_json(),
+      httr::accept_json(),
+      config = httr::config(token = adls$token)
+    )
+
+  response
 }

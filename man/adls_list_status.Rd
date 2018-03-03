@@ -2,9 +2,12 @@
 % Please edit documentation in R/list_status.R
 \name{adls_list_status}
 \alias{adls_list_status}
+\alias{adls_path_exists}
 \title{List a directory.}
 \usage{
 adls_list_status(adls, path = NULL)
+
+adls_path_exists(adls, path = NULL)
 }
 \arguments{
 \item{adls}{\code{adls} S3 object, generated using \code{\link[=adls]{adls()}}.}
@@ -14,6 +17,8 @@ in \code{adls$base_url}. You may find \code{\link[=file.path]{file.path()}} to b
 }
 \value{
 If empty, returns \code{NULL}. Otherwise returns \code{tbl_df} with with directory listing.
+
+\code{logical} indicating if the path exists
 }
 \description{
 List a directory.

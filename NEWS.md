@@ -1,5 +1,7 @@
 # AzureDatalakeStore 0.0.0.9000
 
+* Adds function `adls_path_exists()`, returns logical.
+
 * Changes `adls_list_status()` to return `length` as a numeric.
 
 * Adds function `adls_append()` to append a file.
